@@ -1,0 +1,182 @@
+
+    <style>
+        .hide{
+            display:none;
+        }
+        img{
+            height:48vh;
+        }
+        body{
+            margin:0;
+            text-align: center;
+        }
+        .gato{
+            display:flex;
+            align-items: center;
+            justify-content: center ;
+        }
+        .gatoDesc{
+            display:flex;
+            justify-content: space-around;
+        }
+    </style>
+<body>
+    <h1>RazerOphone</h1>
+    <select type="select"  id="instrument">
+      <option value="voice">VOICEMOX</option>
+      <option value="trumpet">Trumpet</option>
+    </select>
+<div class="gato">
+    <img id="img1" src="2.jpg" >
+    <img id="img2" src="2.jpg" >
+    <img id="img3" src="2.jpg" >
+    <img id="img4" src="2.jpg" >
+    <img id="img5" src="2.jpg" >
+    <img id="img6" src="2.jpg" >
+    <img id="img7" src="2.jpg" >
+    <img id="img8" src="2.jpg" >
+</div>
+<div class="gatoDesc">
+    <span>A or Q</span>
+    <span>Z or W</span>
+    <span>E</span>
+    <span>R</span>
+    <span>T</span>
+    <span>Y</span>
+    <span>U</span>
+    <span>I</span>
+
+</div>
+
+</body>
+
+<script>
+
+const imgElement1 = document.getElementById("img1"); //a
+const imgElement2 = document.getElementById("img2"); //z
+const imgElement3 = document.getElementById("img3");
+const imgElement4 = document.getElementById("img4");
+const imgElement5 = document.getElementById("img5"); //a
+const imgElement6 = document.getElementById("img6"); //z
+const imgElement7 = document.getElementById("img7");
+const imgElement8 = document.getElementById("img8");
+
+const image2 = "./2.jpg";
+const image1 = "./1.png";
+var folder = "voice"
+var sounds;
+rebuildSound()
+const selectElement = document.querySelector("#instrument");
+
+selectElement.addEventListener("change", (event) => {
+  folder = event.target.value
+  console.log("change to "+folder)
+  rebuildSound()
+});
+
+function rebuildSound(){
+  sounds = {
+  'a': new Audio('./'+folder+'/c4.mp3'),
+  'z': new Audio('./'+folder+'/d4.mp3'),
+  'q': new Audio('./'+folder+'/c4.mp3'),
+  'w': new Audio('./'+folder+'/d4.mp3'),
+  'e': new Audio('./'+folder+'/e4.mp3'),
+  'r': new Audio('./'+folder+'/f4.mp3'),
+  't': new Audio('./'+folder+'/g4.mp3'),
+  'y': new Audio('./'+folder+'/a4.mp3'),
+  'u': new Audio('./'+folder+'/b4.mp3'),
+  'i': new Audio('./'+folder+'/c5.mp3'),
+}
+}
+
+
+
+
+const pressedKeys = [];
+
+function playSoundLoop(key) {
+  if (sounds[key]) {
+    sounds[key].currentTime = 0; 
+    sounds[key].loop = true;
+    sounds[key].play();
+  }
+}
+
+function stopSoundLoop(key) {
+  if (sounds[key]) {
+    sounds[key].loop = false;
+    sounds[key].pause();
+  }
+}
+
+document.addEventListener('keydown', (event) => {
+  
+  const key = event.key.toLowerCase();
+  
+  if (!pressedKeys.includes(key)) {
+    pressedKeys.push(key);
+    playSoundLoop(key);
+    if(key == "a" ||key == "q" ){
+    imgElement1.src = image1;
+  }
+  if(key == "z" ||key == "w"){
+    imgElement2.src = image1;
+  }
+  if(key == "e"){
+    imgElement3.src = image1;
+  }
+  if(key == "r"){
+    imgElement4.src = image1;
+  }
+  if(key == "t"){
+    imgElement5.src = image1;
+  }
+  if(key == "y"){
+    imgElement6.src = image1;
+  }
+  if(key == "u"){
+    imgElement7.src = image1;
+  }
+  if(key == "i"){
+    imgElement8.src = image1;
+  }
+  }
+});
+
+document.addEventListener('keyup', (event) => {
+  const key = event.key.toLowerCase();
+  
+  const index = pressedKeys.indexOf(key);
+  if (index > -1) {
+    pressedKeys.splice(index, 1);
+    stopSoundLoop(key);
+    if(key == "a" ||key == "q"){
+    imgElement1.src = image2;
+  }
+  if(key == "z" ||key == "w"){
+    imgElement2.src = image2;
+  }
+  if(key == "e"){
+    imgElement3.src = image2;
+  }
+  if(key == "r"){
+    imgElement4.src = image2;
+  }
+  if(key == "t"){
+    imgElement5.src = image2;
+  }
+  if(key == "y"){
+    imgElement6.src = image2;
+  }
+  if(key == "u"){
+    imgElement7.src = image2;
+  }
+  if(key == "i"){
+    imgElement8.src = image2;
+  }
+  }
+});
+
+
+
+</script>
